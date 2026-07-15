@@ -1,1 +1,40 @@
-<p>dashboard works!</p>
+<div class="dashboard-container">
+  <!-- Barra de navegación superior -->
+  <mat-toolbar color="primary" class="navbar">
+    <span class="logo-text">
+      <mat-icon class="icon-align">leaderboard</mat-icon>
+      InvenMax IA
+    </span>
+    <span class="spacer"></span>
+    <button mat-flat-button class="logout-btn" (click)="cerrarSesion()">
+      <mat-icon>logout</mat-icon>
+      Cerrar Sesión
+    </button>
+  </mat-toolbar>
+
+  <!-- Área de Contenido Central -->
+  <main class="content-area">
+    <mat-card class="welcome-card">
+      <mat-card-header>
+        <mat-card-title class="welcome-title">¡Bienvenido al Panel de Control!</mat-card-title>
+        <mat-card-subtitle>Sprint 1: Maquetación Base Completada</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content class="welcome-content">
+        <p>El cascarón del sistema <strong>InvenMax IA</strong> está listo para interactuar.</p>
+        
+        <div class="status-box">
+          <mat-icon class="status-icon">check_circle</mat-icon>
+          <div>
+            <strong>Estado del Frontend:</strong> Operativo y enrutado con Angular Material (Tema Cyan).
+          </div>
+        </div>
+
+        <div class="info-note">
+          <mat-icon>psychology</mat-icon>
+          <p>En la próxima fase conectaremos esta interfaz con nuestro backend en <strong>Spring Boot</strong> y base de datos <strong>MySQL</strong> para habilitar las predicciones automáticas de stock asistidas por Inteligencia Artificial.</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </main>
+</div>
