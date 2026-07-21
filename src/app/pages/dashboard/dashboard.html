@@ -38,3 +38,12 @@
     </mat-card>
   </main>
 </div>
+
+<div style="padding: 20px; font-family: sans-serif;">
+      <h1>Datos desde Neon (PostgreSQL Serverless) </h1>
+      <ul>
+        <li *ngFor="let msg of mensajes" style="margin-bottom: 8px;">
+          <strong>{{ msg.remitente }}</strong> dice: <em>"{{ msg.texto }}"</em>
+        </li>
+      </ul>
+    </div>

@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,17 +14,28 @@ import { Router } from '@angular/router';
     MatToolbarModule, 
     MatCardModule, 
     MatButtonModule, 
-    MatIconModule
+    MatIconModule,
+    CommonModule
   ], // Importamos los componentes visuales necesarios
   templateUrl: './dashboard.html', // o './dashboard.component.html'
   styleUrl: './dashboard.css'      // o './dashboard.component.css'
 })
-export class Dashboard {
+export class Dashboard implements OnInit {
+  mensajes: any[] = []; // Arreglo para almacenar los mensajes recibidos del backend
 
-  constructor(private router: Router) {}
+  // Inyectamos el router para poder cambiar de pantalla
+  constructor(private router: Router, private http: HttpClient) {}
 
-  cerrarSesion() {
+  cerrarSesion(): void {
+    console.log('Cerrar sesión'); // Mensaje de depuración en la consola
     // Te regresa de forma segura a la pantalla de Login
     this.router.navigate(['/login']);
+  }
+
+  ngOnInit(): void {
+    this.http.get<any[]>('http://localhost:8080/api/v1/mensajes')
+    .subscribe(data => {
+      this.mensajes = data;
+    });
   }
 }
