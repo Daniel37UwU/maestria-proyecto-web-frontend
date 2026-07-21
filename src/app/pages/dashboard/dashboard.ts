@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -21,7 +22,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './dashboard.css'      // o './dashboard.component.css'
 })
 export class Dashboard implements OnInit {
-  mensajes: any[] = []; // Arreglo para almacenar los mensajes recibidos del backend
+  inventario: any[] = []; // Arreglo para almacenar los productos recibidos del backend
 
   // Inyectamos el router para poder cambiar de pantalla
   constructor(private router: Router, private http: HttpClient) {}
@@ -33,9 +34,15 @@ export class Dashboard implements OnInit {
   }
 
   ngOnInit(): void {
-    this.http.get<any[]>('http://localhost:8080/api/v1/mensajes')
-    .subscribe(data => {
-      this.mensajes = data;
+// Consumimos el endpoint real de tus productos de InvenMax
+    this.http.get<any[]>('http://localhost:8080/api/v1/productos')
+      .subscribe({
+        next: (data) => {
+          this.inventario = data;
+        },
+        error: (err) => {
+          console.error('Error al conectar con el backend:', err);
+        }
     });
   }
 }

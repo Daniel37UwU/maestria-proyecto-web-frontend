@@ -13,37 +13,57 @@
   </mat-toolbar>
 
   <!-- Área de Contenido Central -->
-  <main class="content-area">
-    <mat-card class="welcome-card">
-      <mat-card-header>
-        <mat-card-title class="welcome-title">¡Bienvenido al Panel de Control!</mat-card-title>
-        <mat-card-subtitle>Sprint 1: Maquetación Base Completada</mat-card-subtitle>
-      </mat-card-header>
+  <main class="content-area" style="padding: 24px; background-color: #f8f9fa;">
+    
+    <!-- Encabezado del Panel -->
+    <div style="margin-bottom: 24px;">
+      <h2 style="color: #1e3a8a; margin: 0; font-size: 24px; font-weight: 600;">Panel de Inventario en Tiempo Real</h2>
+      <p style="color: #6b7280; margin: 4px 0 0 0;">Datos reales persistidos en Neon Cloud (PostgreSQL)</p>
+    </div>
 
-      <mat-card-content class="welcome-content">
-        <p>El cascarón del sistema <strong>InvenMax IA</strong> está listo para interactuar.</p>
-        
-        <div class="status-box">
-          <mat-icon class="status-icon">check_circle</mat-icon>
-          <div>
-            <strong>Estado del Frontend:</strong> Operativo y enrutado con Angular Material (Tema Cyan).
+    <!-- Grid Dinámico usando las Tarjetas de Angular Material -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px;">
+      
+      <mat-card *ngFor="let prod of inventario" style="border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); overflow: hidden;">
+        <mat-card-header style="background-color: #f1f5f9; padding: 12px 16px;">
+          <mat-card-title style="font-size: 16px; font-weight: 600; color: #1e293b; margin: 0;">
+            {{ prod.nombre }}
+          </mat-card-title>
+          <mat-card-subtitle style="margin-top: 4px;">
+            <span style="font-size: 11px; background-color: #dbeafe; color: #2563eb; padding: 2px 8px; border-radius: 12px; font-weight: 600;">
+              {{ prod.categoria }}
+            </span>
+          </mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content style="padding: 16px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px;">
+            <div>
+              <p style="margin: 0; font-size: 12px; color: #64748b;">Stock Actual</p>
+              <!-- Si el stock baja del mínimo, se resalta visualmente en rojo -->
+              <span [style.color]="prod.stockActual < prod.stockMinimo ? '#dc2626' : '#16a34a'" 
+                    style="font-size: 22px; font-weight: 700;">
+                {{ prod.stockActual }} uds
+              </span>
+            </div>
+            <div style="text-align: right;">
+              <p style="margin: 0; font-size: 12px; color: #64748b;">Mínimo Seguro</p>
+              <span style="font-size: 16px; font-weight: 600; color: #475569;">
+                {{ prod.stockMinimo }} uds
+              </span>
+            </div>
           </div>
-        </div>
 
-        <div class="info-note">
-          <mat-icon>psychology</mat-icon>
-          <p>En la próxima fase conectaremos esta interfaz con nuestro backend en <strong>Spring Boot</strong> y base de datos <strong>MySQL</strong> para habilitar las predicciones automáticas de stock asistidas por Inteligencia Artificial.</p>
-        </div>
-      </mat-card-content>
-    </mat-card>
+          <!-- Alerta del sistema inteligente de InvenMax -->
+          <div *ngIf="prod.stockActual < prod.stockMinimo" 
+               style="margin-top: 16px; display: flex; align-items: center; gap: 8px; background-color: #fef2f2; color: #dc2626; padding: 8px 12px; border-radius: 6px; font-size: 12px; font-weight: 600;">
+            <mat-icon style="font-size: 18px; width: 18px; height: 18px;">warning</mat-icon>
+            <span>Alerta: Stock crítico por debajo del mínimo</span>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+    </div>
+
   </main>
 </div>
-
-<div style="padding: 20px; font-family: sans-serif;">
-      <h1>Datos desde Neon (PostgreSQL Serverless) </h1>
-      <ul>
-        <li *ngFor="let msg of mensajes" style="margin-bottom: 8px;">
-          <strong>{{ msg.remitente }}</strong> dice: <em>"{{ msg.texto }}"</em>
-        </li>
-      </ul>
-    </div>
