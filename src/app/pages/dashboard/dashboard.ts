@@ -1,48 +1,69 @@
-import { Component, OnInit } from '@angular/core';
-import { MatToolbarModule } from '@angular/material/toolbar';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+
 
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { AiService } from '../../services/ai';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
   imports: [
-    MatToolbarModule, 
-    MatCardModule, 
-    MatButtonModule, 
-    MatIconModule,
-    CommonModule
+CommonModule,
+    FormsModule,
+    MatCardModule,
+    MatInputModule,
+    MatButtonModule,
+    MatProgressSpinnerModule,
+    MatToolbarModule,
+    MatIconModule
   ], // Importamos los componentes visuales necesarios
   templateUrl: './dashboard.html', // o './dashboard.component.html'
   styleUrl: './dashboard.css'      // o './dashboard.component.css'
 })
-export class Dashboard implements OnInit {
-  inventario: any[] = []; // Arreglo para almacenar los productos recibidos del backend
+export class Dashboard {
+  textoUsuario: string = '';
+  respuestaIA: string = '';
+  cargando: boolean = false;
 
-  // Inyectamos el router para poder cambiar de pantalla
-  constructor(private router: Router, private http: HttpClient) {}
+  constructor(private aiService: AiService, private cdr: ChangeDetectorRef) {}
 
-  cerrarSesion(): void {
-    console.log('Cerrar sesión'); // Mensaje de depuración en la consola
-    // Te regresa de forma segura a la pantalla de Login
-    this.router.navigate(['/login']);
+  cerrarSesion() {
+    console.log('Sesión cerrada correctamente.');
   }
+  
+  enviarPregunta() {
+    if(!this.textoUsuario.trim()) {
+      return; // No enviar si el campo está vacío
+    }
+    this.cargando = true; // Mostrar indicador de carga
+    this.respuestaIA = ''; // Limpiar la respuesta anterior
+    
+    this.aiService.consultarInteligenciaArtificial(this.textoUsuario).subscribe({
+      next: (res) => {
+        console.log("NEXT ejecutando...")
+        this.respuestaIA = res.respuesta;
+        this.cargando = false;
 
-  ngOnInit(): void {
-// Consumimos el endpoint real de tus productos de InvenMax
-    this.http.get<any[]>('http://localhost:8080/api/v1/productos')
-      .subscribe({
-        next: (data) => {
-          this.inventario = data;
-        },
-        error: (err) => {
-          console.error('Error al conectar con el backend:', err);
-        }
+        this.cdr.detectChanges(); // Forzar la detección de cambios para actualizar la vista
+        
+        console.log("cargando =", this.cargando);
+        console.log("respuestaIA =", this.respuestaIA);
+      },
+      error: (err) => {
+        console.error('Error al consultar la IA:', err);
+        this.respuestaIA = 'Ocurrió un error al procesar tu solicitud con el cerebro.';
+        this.cargando = false;
+      },
+      complete: () => {
+        console.log("COMPLETE")
+      }
     });
   }
 }
