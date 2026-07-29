@@ -1,0 +1,70 @@
+<!-- Barra superior de InvenMax adaptada al CSS de tu tema Cian -->
+<mat-toolbar class="navbar">
+  <!-- Lado Izquierdo: Logotipo idéntico al del profesor -->
+  <span class="logo-text">
+    <mat-icon>leaderboard</mat-icon>
+    InvenMax IA - Panel Proyecto
+  </span>
+
+  <!-- El spacer empuja el botón de regresar y salir a la derecha -->
+  <span class="spacer"></span>
+
+  <!-- Área de botones con el estilo integrado -->
+  <div style="display: flex; gap: 12px; align-items: center;">
+    <!-- Botón con estilo blanco sutil para regresar a la guía -->
+    <button mat-button routerLink="/dashboard" style="color: #ffffff; font-weight: bold; margin-right: 8px;">
+      <mat-icon>assignment</mat-icon>
+      Ver Prácticas
+    </button>
+
+    <!-- Botón de Salir con la clase idéntica al diseño escolar -->
+    <button mat-flat-button class="logout-btn" routerLink="/login">
+      <mat-icon>logout</mat-icon>
+      Salir
+    </button>
+  </div>
+</mat-toolbar>
+
+<!-- Formulario del Sprint 3 -->
+<div class="proyecto-container" style="padding: 24px; background-color: #f8fafc; min-height: calc(100vh - 64px);">
+  <mat-card style="max-width: 800px; margin: 0 auto; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+    <!-- Cambié el fondo azul por el cian (#00838f) para que combine con la barra superior -->
+    <mat-card-header style="background-color: #00838f; color: white; padding: 20px; border-radius: 12px 12px 0 0;">
+      <mat-card-title style="font-weight: 600; font-size: 1.4rem;">
+        InvenMax IA — Analizador de Inventario
+      </mat-card-title>
+      <mat-card-subtitle style="color: #e0f7fa; margin-top: 4px;">
+        Sprint 3: Cierre de Integración de IA (Módulo Independiente)
+      </mat-card-subtitle>
+    </mat-card-header>
+    
+    <mat-card-content style="padding: 24px;">
+      <p style="color: #475569; margin-bottom: 20px;">
+        Introduce las especificaciones técnicas del producto a registrar. Nuestro motor analítico clasificará automáticamente el lote mediante peticiones HTTP seguras por POST.
+      </p>
+
+      <mat-form-field appearance="outline" style="width: 100%;">
+        <mat-label>Descripción técnica del producto...</mat-label>
+        <textarea matInput [(ngModel)]="descripcionProducto" rows="4" placeholder="Ej. Lote de 50 Tablets marcas genéricas, 4GB RAM, destinadas a sector educación básica..."></textarea>
+      </mat-form-field>
+      
+      <!-- Botón de acción principal adaptado al cian -->
+      <button mat-raised-button style="background-color: #00838f; color: white; padding: 0 32px; height: 45px; font-size: 1rem;" 
+              (click)="procesarProducto()" [disabled]="procesando">
+        Clasificar con InvenMax IA
+      </button>
+      
+      <!-- UX obligatorio: Indicador de Carga -->
+      <div *ngIf="procesando" style="margin-top: 24px; display: flex; align-items: center; gap: 12px; color: #00838f;">
+        <mat-spinner diameter="30"></mat-spinner>
+        <span style="font-weight: 500;">InvenMax está determinando la categoría...</span>
+      </div>
+      
+      <!-- UX obligatorio: Renderizado de Respuesta/Errores -->
+      <div *ngIf="resultadoAnalisis && !procesando" style="margin-top: 24px; background: #f1f5f9; padding: 20px; border-radius: 8px; border-left: 5px solid #00838f;">
+        <strong style="color: #0f172a; display: block; margin-bottom: 8px; font-size: 1.1rem;">Dictamen del Sistema:</strong>
+        <p style="margin: 0; white-space: pre-line; color: #334155; line-height: 1.6;">{{ resultadoAnalisis }}</p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

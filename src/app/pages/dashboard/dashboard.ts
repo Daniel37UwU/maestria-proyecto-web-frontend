@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+import { Router, RouterModule } from '@angular/router';
 import { AiService } from '../../services/ai';
 
 @Component({
@@ -22,7 +23,8 @@ CommonModule,
     MatButtonModule,
     MatProgressSpinnerModule,
     MatToolbarModule,
-    MatIconModule
+    MatIconModule,
+    RouterModule,
   ], // Importamos los componentes visuales necesarios
   templateUrl: './dashboard.html', // o './dashboard.component.html'
   styleUrl: './dashboard.css'      // o './dashboard.component.css'
@@ -32,10 +34,16 @@ export class Dashboard {
   respuestaIA: string = '';
   cargando: boolean = false;
 
-  constructor(private aiService: AiService, private cdr: ChangeDetectorRef) {}
+  constructor(private aiService: AiService, private cdr: ChangeDetectorRef, private router: Router) {}
 
+  irAlProyecto() {
+    console.log('Navegando al dashboard de InvenMax...');
+    this.router.navigate(['/dashboard-invmax']); // Fuerza el cambio de pantalla
+  }
+  
   cerrarSesion() {
     console.log('Sesión cerrada correctamente.');
+    this.router.navigate(['/login']); // <-- Redirige al login real
   }
   
   enviarPregunta() {

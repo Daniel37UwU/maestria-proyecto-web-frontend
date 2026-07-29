@@ -20,3 +20,20 @@ export class AiService {
     return this.http.post<any>(this.apiUrl, body);
   }
 }
+
+@Injectable({
+  providedIn: 'root'
+})
+export class InventarioService {
+  private apiUrl = 'http://localhost:8080/api/v1/ia/clasificar-producto'; 
+
+  constructor(private http: HttpClient) {}
+
+  clasificarProducto(descripcion: string): Observable<any> {
+    // Creamos el objeto JSON con la descripción del producto
+    const body = { descripcion: descripcion };
+    
+    // Enviamos el body limpio al endpoint de tu proyecto
+    return this.http.post<any>(this.apiUrl, body);
+  }
+}
