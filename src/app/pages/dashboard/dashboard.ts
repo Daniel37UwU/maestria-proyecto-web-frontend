@@ -42,8 +42,14 @@ export class Dashboard {
   }
   
   cerrarSesion() {
-    console.log('Sesión cerrada correctamente.');
-    this.router.navigate(['/login']); // <-- Redirige al login real
+  // 🧼 1. Borramos físicamente el token de la memoria del navegador
+    localStorage.removeItem('auth_token'); 
+
+    // 📝 2. Dejamos el registro en la consola
+    console.log('Sesión cerrada correctamente y token eliminado.');
+
+    // 🚪 3. Redirigimos al usuario a la pantalla de login 
+    this.router.navigate(['/login']);
   }
   
   enviarPregunta() {
