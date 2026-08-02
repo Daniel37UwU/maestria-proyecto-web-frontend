@@ -8,18 +8,18 @@
     <mat-card-content class="form-content">
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Correo electrónico</mat-label>
-        <input matInput placeholder="ejemplo@univo.edu" type="email">
+        <input matInput type="email" [(ngModel)]="email" placeholder="ejemplo@univo.edu.mx" required>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Contraseña</mat-label>
-        <input matInput type="password" placeholder="Ingresa tu contraseña">
+        <input matInput type="password" [(ngModel)]="password" placeholder="Tu contraseña"  required>
       </mat-form-field>
     </mat-card-content>
 
     <mat-card-actions class="actions-container">
-      <!-- (click) ejecuta la función ingresarSistema() de nuestro TypeScript -->
-      <button mat-raised-button color="primary" class="btn-block" (click)="ingresarSistema()">
+      <!-- (click) ejecuta la función hacerLogin() de nuestro TypeScript -->
+      <button mat-raised-button color="primary" class="btn-block" (click)="hacerLogin()">
         Ingresar al Sistema
       </button>
     </mat-card-actions>
