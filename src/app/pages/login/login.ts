@@ -28,7 +28,7 @@ export class LoginComponent {
     };
 
     // Llamamos a la API enviando el paquete
-    this.http.post<any>('http://localhost:8080/api/v1/auth/login', credenciales).subscribe({
+    this.http.post<any>('https://maestria-proyecto-web-backend-production.up.railway.app/api/v1/auth/login', credenciales).subscribe({
       next: (respuesta) => {
         // Guardamos el token en la memoria del navegador (Caja Fuerte)
         localStorage.setItem('auth_token', respuesta.token);

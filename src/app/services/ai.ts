@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class AiService {
   // URL de nuestro Backend en Java
-  private apiUrl = 'http://localhost:8080/api/v1/ia/consulta';
+  private apiUrl = 'https://maestria-proyecto-web-backend-production.up.railway.app/api/v1/ia/consulta';
 
   constructor(private http: HttpClient) {}
 
@@ -25,7 +25,7 @@ export class AiService {
   providedIn: 'root'
 })
 export class InventarioService {
-  private apiUrl = 'http://localhost:8080/api/v1/ia/clasificar-producto'; 
+  private apiUrl = 'https://maestria-proyecto-web-backend-production.up.railway.app/api/v1/ia/clasificar-producto'; 
 
   constructor(private http: HttpClient) {}
 
