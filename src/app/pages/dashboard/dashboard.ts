@@ -11,6 +11,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterModule } from '@angular/router';
 import { AiService } from '../../services/ai';
+import { NavbarComponent } from '../navbar/navbar';
 
 @Component({
   selector: 'app-dashboard',
@@ -25,6 +26,7 @@ CommonModule,
     MatToolbarModule,
     MatIconModule,
     RouterModule,
+    NavbarComponent
   ], // Importamos los componentes visuales necesarios
   templateUrl: './dashboard.html', // o './dashboard.component.html'
   styleUrl: './dashboard.css'      // o './dashboard.component.css'

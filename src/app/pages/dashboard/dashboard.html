@@ -1,25 +1,6 @@
 <div class="dashboard-container">
-  <!-- Barra de navegación superior (Conservada y Modificada) -->
-  <mat-toolbar color="primary" class="navbar">
-    <span class="logo-text">
-      <mat-icon class="icon-align">leaderboard</mat-icon>
-      InvenMax IA
-    </span>
-    
-    <div style="display: flex; gap: 12px; align-items: center;"></div>
-      <!-- Proyecto InvenMax -->
-      <button mat-button (click)="irAlProyecto()"  style="color: #ffffff; font-weight: bold;">
-        <mat-icon>home</mat-icon>
-        Inicio (Mi Proyecto)
-      </button>
-
-      
-      <!-- Cerrar Sesión -->
-      <button mat-flat-button class="logout-btn" (click)="cerrarSesion()">
-        <mat-icon>logout</mat-icon>
-        Cerrar Sesión
-      </button>
-  </mat-toolbar>
+  <!-- Reemplazo mágico por el componente global dinámico -->
+  <app-navbar></app-navbar>
 
   <!-- Área de Contenido de la Guía Práctica -->
   <main class="content-area" style="padding: 24px; background-color: #f8f9fa;">

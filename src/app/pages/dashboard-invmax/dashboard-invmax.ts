@@ -1,58 +1,106 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
+import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
-import { InventarioService } from '../../services/ai';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { NavbarComponent } from '../navbar/navbar';
+import { ProductoDTO } from '../../models/producto/producto';
+import { InventarioService } from '../../services/inventario';
+import { AiService } from '../../services/ai';
+
 @Component({
   selector: 'app-dashboard-invmax',
   standalone: true,
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule,
     MatCardModule,
-    MatInputModule,
-    MatFormFieldModule,
+    MatTableModule,
     MatButtonModule,
+    MatIconModule,
     MatProgressSpinnerModule,
-    MatToolbarModule,
-    MatIconModule
+    NavbarComponent
   ],
-  templateUrl: './dashboard-invmax.html', // Verifica que coincida con el nombre de tu archivo html
-  styleUrl: './dashboard-invmax.css'     // Verifica que coincida con tu archivo css
+  templateUrl: './dashboard-invmax.html',
+  styleUrl: './dashboard-invmax.css'
 })
-export class DashboardInvmax {
-  descripcionProducto: string = '';
-  resultadoAnalisis: string = '';
-  procesando: boolean = false;
+export class DashboardInvmax implements OnInit {
+  // Datos de Productos
+  productosCriticos: ProductoDTO[] = [];
+  columnasTabla: string[] = ['id', 'nombre', 'categoria', 'stock', 'sugerido', 'costoEstimado'];
 
-  constructor(private inventarioService: InventarioService, private cdr: ChangeDetectorRef) {}
+  // Métricas KPI
+  totalAgotados: number = 0;
+  totalCriticos: number = 0;
+  presupuestoReabastecimiento: number = 0;
 
-  procesarProducto() {
-    if (!this.descripcionProducto.trim()) return;
+  // Estado de InvenMax IA
+  reporteMarkdown: string = '';
+  cargandoReporte: boolean = false;
+  errorReporte: string | null = null;
 
-    this.procesando = true;
-    this.resultadoAnalisis = '';
+  constructor(
+    private inventarioService: InventarioService,
+    private aiService: AiService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
-    this.inventarioService.clasificarProducto(this.descripcionProducto).subscribe({
-      next: (res) => {
-        this.resultadoAnalisis = res.analisis; 
-        this.procesando = false;
+  ngOnInit(): void {
+    this.cargarMetricas();
+    this.cargarAnalisisIA();
+  }
+
+  // Carga de inventario
+  cargarMetricas(): void {
+    this.inventarioService.obtenerProductos().subscribe({
+      next: (productos: ProductoDTO[]) => {
+        this.productosCriticos = productos.filter(
+          p => p.estado === 'ACTIVO' && p.stockActual <= p.stockMinimo
+        );
+
+        this.totalAgotados = productos.filter(p => p.estado === 'ACTIVO' && p.stockActual === 0).length;
+        this.totalCriticos = this.productosCriticos.length;
+
+        this.presupuestoReabastecimiento = this.productosCriticos.reduce((sum, p) => {
+          const unidadesSugeridas = (p.stockMinimo * 2) - p.stockActual;
+          return sum + (unidadesSugeridas * p.costoAdquisicion);
+        }, 0);
+
+        this.cdr.detectChanges();
+      },
+      error: (err) => console.error('Error al cargar datos del inventario:', err)
+    });
+  }
+
+  // Carga del reporte de Spring AI / Llama 3
+  cargarAnalisisIA(): void {
+    this.cargandoReporte = true;
+    this.errorReporte = null;
+
+    this.aiService.obtenerReporteOperativo().subscribe({
+      next: (data) => {
+        this.reporteMarkdown = data.reporte;
+        this.cargandoReporte = false;
         this.cdr.detectChanges();
       },
       error: (err) => {
-        console.error('Error en la integración con InvenMax IA:', err);
-        this.resultadoAnalisis = 'Error de conexión: El servidor central de InvenMax no responde. Verifica que tu backend en Spring Boot esté corriendo.';
-        this.procesando = false;
+        console.error('Error al conectar con InvenMax IA:', err);
+        this.errorReporte = 'No se pudo generar el reporte predictivo en este momento. Verifique la conexión con el servidor.';
+        this.cargandoReporte = false;
         this.cdr.detectChanges();
       }
     });
+  }
+
+  calcularSugerido(p: ProductoDTO): number {
+    const sugerido = (p.stockMinimo * 2) - p.stockActual;
+    return sugerido > 0 ? sugerido : 0;
+  }
+
+  calcularCostoRestock(p: ProductoDTO): number {
+    return this.calcularSugerido(p) * p.costoAdquisicion;
   }
 }
