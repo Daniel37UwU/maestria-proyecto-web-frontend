@@ -1,0 +1,36 @@
+<div class="ia-card-container">
+  <!-- Cabecera de la Tarjeta Analítica -->
+  <div class="ia-card-header">
+    <div class="ia-title-group">
+      <span class="ia-icon">🤖</span>
+      <div>
+        <h3>Reporte Predictivo InvenMax IA</h3>
+        <p class="ia-subtitle">Análisis financiero y optimización de existencias en tiempo real</p>
+      </div>
+    </div>
+    <button class="ia-refresh-btn" (click)="cargarAnalisisIA()" [disabled]="cargandoReporte">
+      🔄 Recalcular
+    </button>
+  </div>
+
+<!-- Estado 1: Pantalla de Carga Progresiva -->
+  <div *ngIf="cargandoReporte" class="ia-loading-state">
+    <div class="ia-spinner"></div>
+    <p>Conectando con el núcleo transaccional MySQL...</p>
+    <small>Spring AI está procesando inventarios y velocidades de venta con Llama 3</small>
+  </div>
+
+  <!-- Estado 2: Manejo de Errores Críticos -->
+  <div *ngIf="!cargandoReporte && errorReporte" class="ia-error-state">
+    <p>{{ errorReporte }}</p>
+  </div>
+
+  <!-- Estado 3: Despliegue Exclusivo del Informe -->
+  <div *ngIf="!cargandoReporte && !errorReporte && reporteMarkdown" class="ia-report-body">
+    <div class="ia-insight-box">
+      <span class="ia-badge">ANÁLISIS DE DOMINIO AUTOMATIZADO</span>
+      <!-- Esta propiedad preserva el formato de viñetas estructuradas enviado por la IA -->
+      <p class="ia-text-content" style="white-space: pre-wrap;">{{ reporteMarkdown }}</p>
+    </div>
+  </div>
+</div>

@@ -33,7 +33,7 @@ export class LoginComponent {
         // Guardamos el token en la memoria del navegador (Caja Fuerte)
         localStorage.setItem('auth_token', respuesta.token);
         // Lo mandamos al dashboard
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/dashboard-invmax']);
       },
       error: (err) => {
         alert("Error al iniciar sesión: Revisa tus credenciales.");

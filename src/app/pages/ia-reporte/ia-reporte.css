@@ -1,0 +1,117 @@
+.ia-card-container {
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  padding: 24px;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  margin: 20px 0;
+}
+
+.ia-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #f1f5f9;
+  padding-bottom: 16px;
+  margin-bottom: 20px;
+}
+
+.ia-title-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ia-icon {
+  font-size: 2rem;
+}
+
+.ia-card-header h3 {
+  margin: 0;
+  color: #0f172a;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.ia-subtitle {
+  margin: 4px 0 0 0;
+  color: #64748b;
+  font-size: 0.875rem;
+}
+
+.ia-refresh-btn {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.ia-refresh-btn:hover:not(:disabled) {
+  background: #1d4ed8;
+}
+
+.ia-refresh-btn:disabled {
+  background: #94a3b8;
+  cursor: not-allowed;
+}
+
+.ia-loading-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: #475569;
+}
+
+.ia-spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #2563eb;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 16px auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.ia-error-state {
+  background: #fef2f2;
+  border: 1px solid #fee2e2;
+  color: #991b1b;
+  padding: 16px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+.ia-insight-box {
+  background: #f8fafc;
+  border-left: 4px solid #2563eb;
+  padding: 20px;
+  border-radius: 0 8px 8px 0;
+}
+
+.ia-badge {
+  background: #dbeafe;
+  color: #1e40af;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 12px;
+  letter-spacing: 0.05em;
+}
+
+.ia-text-content {
+  color: #334155;
+  font-size: 0.975rem;
+  line-height: 1.6;
+  margin: 0;
+}

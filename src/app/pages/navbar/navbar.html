@@ -1,0 +1,46 @@
+<mat-toolbar class="navbar">
+  <!-- Sección Izquierda: Logo -->
+  <span class="logo-text" (click)="irAlProyecto()" style="cursor: pointer;">
+    <mat-icon class="icon-align">leaderboard</mat-icon>
+    InvenMax <span class="badge-ia">IA</span>
+  </span>
+  
+  <!-- Espaciador central transparente automático -->
+  <span class="spacer"></span>
+
+  <!-- Sección Derecha: Navegación Centralizada -->
+  <div class="nav-links">
+    <!-- Botón Inicio -->
+    <button mat-button class="nav-btn" (click)="irAlProyecto()">
+      <mat-icon>home</mat-icon>
+      Inicio
+    </button>
+
+    <!-- Botón Productos -->
+    <button mat-button class="nav-btn" (click)="irAlProducto()">
+      <mat-icon>inventory_2</mat-icon>
+      Productos
+    </button>
+
+    <!-- Botón Asistente Cerebro -->
+    <button mat-button class="nav-btn" (click)="irAlAsistente()">
+      <mat-icon>psychology</mat-icon>
+      Asistente IA
+    </button>
+    
+    <!-- Menú Desplegable de Usuario (Le da el toque Premium SaaS) -->
+    <button mat-icon-button [matMenuTriggerFor]="userMenu" class="user-avatar-btn">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+    
+    <mat-menu #userMenu="matMenu" xPosition="before" class="custom-menu">
+      <div class="menu-profile-header">
+        <p class="profile-title">Usuario Activo</p>
+      </div>
+      <button mat-menu-item class="menu-logout-btn" (click)="cerrarSesion()">
+        <mat-icon>logout</mat-icon>
+        <span>Cerrar Sesión</span>
+      </button>
+    </mat-menu>
+  </div>
+</mat-toolbar>

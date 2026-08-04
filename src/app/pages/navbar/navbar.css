@@ -1,0 +1,84 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  padding: 0 24px !important;
+  background-color: #00838f !important; /* Tu Cian oscuro muy elegante */
+  color: #ffffff !important;
+  height: 64px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo-text {
+  font-weight: 800;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #ffffff !important;
+  letter-spacing: -0.03em;
+  transition: transform 0.2s ease;
+}
+
+.logo-text:hover {
+  transform: scale(1.02);
+}
+
+.badge-ia {
+  font-size: 11px;
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.nav-links {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+/* Botones de navegación dinámicos */
+.nav-btn {
+  color: #ffffff !important;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 0 12px !important;
+  transition: all 0.2s ease-in-out;
+}
+
+.nav-btn:hover {
+  background-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+/* Botón del avatar del usuario */
+.user-avatar-btn {
+  color: #ffffff !important;
+  transform: scale(1.1);
+  transition: all 0.2s ease;
+}
+
+.user-avatar-btn:hover {
+  background-color: rgba(255, 255, 255, 0.15) !important;
+  transform: scale(1.15);
+}
+
+/* Estilos del menú premium desplegable */
+.menu-profile-header {
+  padding: 12px 16px;
+  font-size: 12px;
+  color: #666;
+  font-weight: bold;
+}
+
+.menu-logout-btn {
+  color: #ef4444 !important; /* Rojo sutil para destrucción de sesión */
+}

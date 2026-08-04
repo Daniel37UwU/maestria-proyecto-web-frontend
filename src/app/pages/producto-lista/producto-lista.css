@@ -1,0 +1,129 @@
+.content-area {
+  padding: 30px 40px;
+  background-color: #f8f9fa;
+  min-height: calc(100vh - 64px);
+}
+
+.table-header-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.title-page {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+}
+
+.subtitle {
+  color: #64748b;
+  margin: 4px 0 0 0;
+}
+
+.btn-add {
+  background-color: #00838f !important;
+  color: #ffffff !important;
+  font-weight: bold;
+  border-radius: 8px;
+}
+
+.table-card {
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.04) !important;
+  overflow: hidden;
+}
+
+.custom-table {
+  width: 100%;
+}
+
+.bold-text {
+  font-weight: 600;
+}
+
+.badge-cat {
+  background-color: #e0f2f1;
+  color: #004d40;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.price-text {
+  color: #00838f;
+  font-weight: 600;
+}
+
+.stock-display {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+}
+
+.stock-danger {
+  color: #ef4444;
+  background-color: #fee2e2;
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
+.mini-warning {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.edit-icon {
+  color: #00838f !important;
+}
+
+.no-data {
+  padding: 40px;
+  text-align: center;
+  color: #94a3b8;
+}
+
+.no-data mat-icon {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+}
+
+/* Fila opaca cuando el producto está inactivo */
+.fila-inactiva {
+  background-color: #f5f5f5 !important;
+  opacity: 0.6;
+  transition: all 0.3s ease;
+}
+
+.fila-inactiva:hover {
+  opacity: 0.85; /* Muestra un poco más de opacidad al pasar el mouse */
+}
+
+/* Badges de estado */
+.badge-activo {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-weight: 500;
+  font-size: 0.85rem;
+}
+
+.badge-inactivo {
+  background-color: #e0e0e0;
+  color: #616161;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-weight: 500;
+  font-size: 0.85rem;
+}
